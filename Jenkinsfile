@@ -18,12 +18,12 @@ pipeline {
                  sh 'mvn clean package'
             }
 
-         stage('Sonar') {
+        }
+
+        stage('Sonar') {
             steps {
                 sh "mvn sonar:sonar -Dsonar.host.url=${env.SONARQUBE_HOST}"
             }
-        }
-
         }
     }
     
