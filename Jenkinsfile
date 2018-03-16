@@ -14,7 +14,7 @@ pipeline {
         }
         
         stage('clean') {
-        
+
             steps {
                  sh 'mvn -U clean test cobertura:cobertura -Dcobertura.report.format=xml'
             }
@@ -22,6 +22,7 @@ pipeline {
             post {
                 always {
                     junit '**/target/*-reports/TEST-*.xml'
+                    step([$class: 'CoberturaPublisher', coberturaReportFile: 'target/site/cobertura/coverage.xml'])
                 }
             }
 
