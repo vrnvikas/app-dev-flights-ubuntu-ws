@@ -14,8 +14,15 @@ pipeline {
         }
         
         stage('clean') {
+        
             steps {
-                 sh 'mvn clean package'
+                 sh 'mvn clean test'
+            }
+
+            post {
+                always {
+                    junit '**/target/*-reports/TEST-*.xml'
+                }
             }
 
         }
