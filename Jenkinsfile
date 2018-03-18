@@ -13,16 +13,6 @@ pipeline {
             }
         }
 
-        // stage('push to artifactory') {
-        //     steps {
-
-        //         configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
-        //             sh "mvn -s $SETTINGS deploy -DskipTests -Dartifactory_url=${env.ARTIFACTORY_URL}"
-        //         }
-        //     }
-        // }        
-        
-
         stage('clean') {
             steps {
                 sh 'mvn clean'
@@ -40,11 +30,21 @@ pipeline {
 
         }
 
-        stage('Sonar') {
-            steps {
-                sh "mvn sonar:sonar -Dsonar.host.url=${env.SONARQUBE_HOST}"
-            }
-        }
+        // stage('Sonar') {
+        //     steps {
+        //         sh "mvn sonar:sonar -Dsonar.host.url=${env.SONARQUBE_HOST}"
+        //     }
+        // }
+
+        // stage('push to artifactory') {
+        //     steps {
+
+        //         configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
+        //             sh "mvn -s $SETTINGS deploy -DskipTests -Dartifactory_url=${env.ARTIFACTORY_URL}"
+        //         }
+        //     }
+        // }        
+        
 
     }
     
