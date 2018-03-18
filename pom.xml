@@ -84,7 +84,7 @@
 					</execution>
 				</executions>
 			</plugin>
-		<plugin>
+		
 <plugin>
                 <groupId>com.mulesoft.munit.tools</groupId>
                 <artifactId>munit-maven-plugin</artifactId>
