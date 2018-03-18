@@ -24,17 +24,13 @@
     </properties>
 
     <distributionManagement>
-    <snapshotRepository>
-        <id>snapshots</id>
-        <name>LIN19001415-snapshots</name>
-        <url>http://localhost:8081/artifactory/libs-snapshot-local</url>
-    </snapshotRepository>
-     <repository>
-        <id>central</id>
-        <name>LIN19001415-releases</name>
-        <url>http://localhost:8081/artifactory/libs-release-local</url>
-    </repository>
-</distributionManagement>
+        <snapshotRepository>
+            <id>artifactory</id>
+            <name>artifactory</name>
+            <url>${artifactory_url}</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 
 
 	<build>

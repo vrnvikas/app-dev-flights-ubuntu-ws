@@ -12,19 +12,23 @@ pipeline {
                 checkout scm
             }
         }
+
+        stage('download_stash_code') {
+            steps {
+                configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
+                    sh "mvn -s $SETTINGS deploy -DskipTests -Dartifactory_url=${env.ARTIFACTORY_URL}"
+            }
+        }        
         
         stage('clean') {
 
             steps {
                  sh 'mvn -U clean test cobertura:cobertura -Dcobertura.report.format=xml'
+                 junit '**/target/*-reports/TEST-*.xml'
+                 step([$class: 'CoberturaPublisher', coberturaReportFile: 'target/site/cobertura/coverage.xml'])
+
             }
 
-            post {
-                always {
-                    junit '**/target/*-reports/TEST-*.xml'
-                    step([$class: 'CoberturaPublisher', coberturaReportFile: 'target/site/cobertura/coverage.xml'])
-                }
-            }
 
         }
 
@@ -33,6 +37,10 @@ pipeline {
                 sh "mvn sonar:sonar -Dsonar.host.url=${env.SONARQUBE_HOST}"
             }
         }
+
+
+
+
     }
     
 }
