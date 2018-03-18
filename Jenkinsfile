@@ -13,10 +13,12 @@ pipeline {
             }
         }
 
-        stage('download_stash_code') {
+        stage('push to artifactory') {
             steps {
+                
                 configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
                     sh "mvn -s $SETTINGS deploy -DskipTests -Dartifactory_url=${env.ARTIFACTORY_URL}"
+                }
             }
         }        
         
@@ -38,20 +40,6 @@ pipeline {
             }
         }
 
-
-
-
     }
     
 }
-
-
-	
-
-
-	
-
-
-	
-	
-	 
