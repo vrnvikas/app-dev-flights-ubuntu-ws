@@ -19,20 +19,49 @@ pipeline {
             }
         }
 
-        stage('munit') {
+        stage('munit and sonar tests') {
 
             steps {
-                 sh 'mvn -U clean test cobertura:cobertura -Dcobertura.report.format=xml'
-                junit '**/target/*-reports/TEST-*.xml'
-                step([$class: 'CoberturaPublisher', coberturaReportFile: 'target/site/cobertura/coverage.xml'])
+                 
+
+                parallel(
+                        install: {
+                            sh 'mvn -U clean test cobertura:cobertura -Dcobertura.report.format=xml'
+                            junit '**/target/*-reports/TEST-*.xml'
+                            step([$class: 'CoberturaPublisher', coberturaReportFile: 'target/site/cobertura/coverage.xml'])
+                        },
+                        sonar: {
+                            sh "mvn sonar:sonar -Dsonar.host.url=${env.SONARQUBE_HOST}"
+                        }
+                )
+
+
             }
 
 
         }
 
-        stage('Sonar') {
+        // stage('Sonar') {
+        //     steps {
+        //         sh "mvn sonar:sonar -Dsonar.host.url=${env.SONARQUBE_HOST}"
+        //     }
+        // }
+
+        stage('publish munit result') {
             steps {
-                sh "mvn sonar:sonar -Dsonar.host.url=${env.SONARQUBE_HOST}"
+                def exists = fileExists 'target/munit-reports/coverage/summary.html'
+
+                if (exists) 
+                    {
+                        echo 'html report file is generated'
+                        publishHTML (target: [
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: false,
+                        keepAll: true,
+                        reportDir: 'target/munit-reports/coverage',
+                        reportFiles: 'summary.html',
+                        reportName: "Coverage Report" ])
+                    } 
             }
         }
 
