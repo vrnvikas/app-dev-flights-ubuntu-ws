@@ -49,19 +49,8 @@ pipeline {
 
         stage('publish munit result') {
             steps {
-                def exists = fileExists 'target/munit-reports/coverage/summary.html'
 
-                if (exists) 
-                    {
-                        echo 'html report file is generated'
-                        publishHTML (target: [
-                        allowMissing: false,
-                        alwaysLinkToLastBuild: false,
-                        keepAll: true,
-                        reportDir: 'target/munit-reports/coverage',
-                        reportFiles: 'summary.html',
-                        reportName: "Coverage Report" ])
-                    } 
+                publish_html()
             }
         }
 
@@ -77,4 +66,22 @@ pipeline {
 
     }
     
+}
+
+
+def publish_html()
+{   
+    def exists = fileExists 'target/munit-reports/coverage/summary.html'
+    if (exists) 
+    {
+        echo 'html report file is generated'
+        publishHTML (target: [
+        allowMissing: false,
+        alwaysLinkToLastBuild: false,
+        keepAll: true,
+        reportDir: 'target/munit-reports/coverage',
+        reportFiles: 'summary.html',
+        reportName: "Coverage Report" ])
+    } 
+        
 }
