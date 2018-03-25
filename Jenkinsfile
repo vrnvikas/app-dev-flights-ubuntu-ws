@@ -19,42 +19,42 @@ pipeline {
             }
         }
 
-        stage('munit') {
+        // stage('munit') {
 
-            steps {
+        //     steps {
                  
 
-               sh 'mvn -U clean test cobertura:cobertura -Dcobertura.report.format=xml'
-                junit '**/target/*-reports/TEST-*.xml'
-                step([$class: 'CoberturaPublisher', coberturaReportFile: 'target/site/cobertura/coverage.xml'])
+        //        sh 'mvn -U clean test cobertura:cobertura -Dcobertura.report.format=xml'
+        //         junit '**/target/*-reports/TEST-*.xml'
+        //         step([$class: 'CoberturaPublisher', coberturaReportFile: 'target/site/cobertura/coverage.xml'])
 
 
-            }
+        //     }
 
 
-        }
+        // }
 
-        stage('Sonar') {
-            steps {
-                sh "mvn sonar:sonar -Dsonar.host.url=${env.SONARQUBE_HOST}"
-            }
-        }
+        // stage('Sonar') {
+        //     steps {
+        //         sh "mvn sonar:sonar -Dsonar.host.url=${env.SONARQUBE_HOST}"
+        //     }
+        // }
 
-        stage('publish munit result') {
-            steps {
-
-                publish_html()
-            }
-        }
-
-        // stage('push to artifactory') {
+        // stage('publish munit result') {
         //     steps {
 
-        //         configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
-        //             sh "mvn -s $SETTINGS deploy -DskipTests -Dartifactory_url=${env.ARTIFACTORY_URL}"
-        //         }
+        //         publish_html()
         //     }
-        // }        
+        // }
+
+        stage('push to artifactory') {
+            steps {
+
+                configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
+                    sh "mvn -s $SETTINGS deploy -DskipTests -Dartifactory_url=${env.ARTIFACTORY_URL}"
+                }
+            }
+        }        
         
 
     }
