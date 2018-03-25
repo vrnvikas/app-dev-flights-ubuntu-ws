@@ -23,15 +23,26 @@
 
     </properties>
 
-    <distributionManagement>
+<!--     <distributionManagement>
         <snapshotRepository>
             <id>artifactory</id>
             <name>artifactory</name>
             <url>${artifactory_url}</url>
         </snapshotRepository>
-    </distributionManagement>
+    </distributionManagement> -->
 
-
+<distributionManagement>
+    <snapshotRepository>
+        <id>snapshots</id>
+        <name>ip-172-31-0-31-snapshots</name>
+        <url>http://ec2-13-126-22-9.ap-south-1.compute.amazonaws.com:8081/artifactory/libs-snapshot</url>
+    </snapshotRepository>
+     <repository>
+        <id>central</id>
+        <name>ip-172-31-0-31-releases</name>
+        <url>http://ec2-13-126-22-9.ap-south-1.compute.amazonaws.com:8081/artifactory/libs-release-local</url>
+    </repository>
+</distributionManagement>
 
 	<build>
 		<plugins>
