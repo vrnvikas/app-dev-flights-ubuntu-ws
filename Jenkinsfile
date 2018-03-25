@@ -51,7 +51,7 @@ pipeline {
             steps {
 
                 configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
-                    sh "mvn -s $SETTINGS deploy -DskipTests -Dartifactory_url=${env.ARTIFACTORY_URL} -Dartifactory_url=${env.ARTIFACTORY_NAME}"
+                    sh "mvn -s $SETTINGS deploy -DskipTests -Dartifactory_url=${env.ARTIFACTORY_URL} -Dartifactory_name=${env.ARTIFACTORY_NAME}"
                 }
             }
         }        
