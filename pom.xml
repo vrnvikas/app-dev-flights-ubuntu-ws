@@ -23,13 +23,13 @@
 
     </properties>
 
-<!--     <distributionManagement>
+    <distributionManagement>
         <snapshotRepository>
-            <id>artifactory</id>
+            <id>snapshots</id>
             <name>artifactory</name>
             <url>${artifactory_url}</url>
         </snapshotRepository>
-    </distributionManagement> -->
+    </distributionManagement>
 
 <distributionManagement>
     <snapshotRepository>
