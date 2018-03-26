@@ -60,10 +60,10 @@ pipeline {
         stage('tag the build') {
             steps {
                     sh 'git describe --tags --long'
-                    print "commit message"
-                    print getCommit()
-                    print "tag"
-                    print sh(script: "git describe --tags --long", returnStdout: true)?.trim()
+                    // print "commit message"
+                    // print getCommit()
+                    // print "tag"
+                    // print sh(script: "git describe --tags --long", returnStdout: true)?.trim()
             }
         }
                
