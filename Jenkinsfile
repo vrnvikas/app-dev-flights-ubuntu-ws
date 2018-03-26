@@ -60,11 +60,11 @@ pipeline {
         stage('tag the build') {
             steps {
                     sh 'git describe --tags --long'
-                    def desc = sh(script: "git describe --tags --long", returnStdout: true)?.trim()
+                    desc = sh(script: "git describe --tags --long", returnStdout: true)?.trim()
                     print "commit message"
                     print getCommit()
                     print "tag"
-                    print "$desc"
+                    print desc
             }
         }
                
