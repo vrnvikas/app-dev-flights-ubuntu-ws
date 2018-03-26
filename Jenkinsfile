@@ -47,23 +47,24 @@ pipeline {
         //     }
         // }
 
-        stage('push to artifactory') {
-            steps {
+        // stage('push to artifactory') {
+        //     steps {
 
-                // configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
-                //     sh "mvn -s $SETTINGS deploy -DskipTests -Dartifactory_url=${env.ARTIFACTORY_URL} -Dartifactory_name=${env.ARTIFACTORY_NAME}"
-                // }
-            }
-        }
+        //         configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
+        //             sh "mvn -s $SETTINGS deploy -DskipTests -Dartifactory_url=${env.ARTIFACTORY_URL} -Dartifactory_name=${env.ARTIFACTORY_NAME}"
+        //         }
+        //     }
+        // }
 
 
         stage('tag the build') {
             steps {
                     sh 'git describe --tags --long'
-                    // print "commit message"
-                    // print getCommit()
-                    // print "tag"
-                    // print sh(script: "git describe --tags --long", returnStdout: true)?.trim()
+                    def desc = sh(script: "git describe --tags ${commit}", returnStdout: true)?.trim()
+                    print "commit message"
+                    print getCommit()
+                    print "tag"
+                    print "$desc"
             }
         }
                
