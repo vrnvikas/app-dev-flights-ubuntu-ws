@@ -58,10 +58,17 @@ pipeline {
 
 
         stage('tag the build') {
-            steps {
+            steps { 
+
+
+                    
+                    sh"git config user.name 'vrnvikas'"
+                    sh"git config user.email 'vrnvikas1994@gmail.com'"
+                    //sh"git tag v$pom_version.${env.BUILD_NUMBER}"
+                    //sh"git push -u ${repo_artifactory_path} master tag v$pom_version.${env.BUILD_NUMBER}"
                     sh 'git describe --tags --long'
-                    sh "git tag -a v0.8 -m 'build-${env.BUILD_NUMBER}'"
-                    sh 'git push origin v0.8'
+                    sh "git tag -a v0.8.1 -m 'build-${env.BUILD_NUMBER}'"
+                    sh 'git push origin v0.8.1'
                     print "commit message"
                     print getCommit()
                     print "tag"
