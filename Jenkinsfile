@@ -15,7 +15,7 @@ pipeline {
 
         stage('clean') {
             steps {
-                sh 'mvn clean'
+                sh "mvn clean -DbuildNumber=${env.BUILD_NUMBER}"
             }
         }
 
@@ -47,14 +47,7 @@ pipeline {
         //     }
         // }
 
-        // stage('push to artifactory') {
-        //     steps {
 
-        //         configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
-        //             sh "mvn -s $SETTINGS deploy -DskipTests -Dartifactory_url=${env.ARTIFACTORY_URL} -Dartifactory_name=${env.ARTIFACTORY_NAME}"
-        //         }
-        //     }
-        // }
 
 
         stage('tag the build') {
@@ -62,17 +55,24 @@ pipeline {
 
 
                     
-                    sh"git config user.name 'vrnvikas'"
-                    sh"git config user.email 'vrnvikas1994@gmail.com'"
+                    //sh"git config user.name 'vrnvikas'"
+                    //sh"git config user.email 'vrnvikas1994@gmail.com'"
                     //sh"git tag v$pom_version.${env.BUILD_NUMBER}"
                     //sh"git push -u ${repo_artifactory_path} master tag v$pom_version.${env.BUILD_NUMBER}"
-                    sh 'git describe --tags --long'
-                    sh "git tag -a v0.8.1 -m 'build-${env.BUILD_NUMBER}'"
-                    sh 'git push origin v0.8.1'
-                    print "commit message"
-                    print getCommit()
-                    print "tag"
+                    //sh 'git describe --tags --long'
+                    //sh "git tag -a v0.8.1 -m 'build-${env.BUILD_NUMBER}'"
+                    //sh 'git push origin v0.8.1'
                     print sh(script: "git describe --tags --long", returnStdout: true)?.trim()
+            }
+        }
+
+
+                stage('push to artifactory') {
+            steps {
+
+                configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
+                    sh "mvn -s $SETTINGS deploy -DskipTests -Dartifactory_url=${env.ARTIFACTORY_URL} -Dartifactory_name=${env.ARTIFACTORY_NAME} -DbuildNumber=${env.BUILD_NUMBER}"
+                }
             }
         }
                
