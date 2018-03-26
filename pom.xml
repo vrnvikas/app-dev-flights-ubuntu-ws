@@ -28,6 +28,8 @@
             <id>snapshots</id>
             <name>${artifactory_name}</name>
             <url>${artifactory_url}</url>
+            <snapshotVersionBehavior>non-unique</snapshotVersionBehavior>
+            <uniqueVersion>false</uniqueVersion>
         </snapshotRepository>
     </distributionManagement>
 
