@@ -50,9 +50,9 @@ pipeline {
         stage('push to artifactory') {
             steps {
 
-                configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
-                    sh "mvn -s $SETTINGS deploy -DskipTests -Dartifactory_url=${env.ARTIFACTORY_URL} -Dartifactory_name=${env.ARTIFACTORY_NAME}"
-                }
+                // configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
+                //     sh "mvn -s $SETTINGS deploy -DskipTests -Dartifactory_url=${env.ARTIFACTORY_URL} -Dartifactory_name=${env.ARTIFACTORY_NAME}"
+                // }
             }
         }
 
@@ -60,11 +60,15 @@ pipeline {
         stage('tag the build') {
             steps {
                     sh 'git describe --tags --long'
+                    def desc = sh(script: "git describe --tags --long", returnStdout: true)?.trim()
+                    print "commit message"
+                    print getCommit()
+                    print "tag"
+                    print "$desc"
             }
         }
                
         
-
     }
     
 }
