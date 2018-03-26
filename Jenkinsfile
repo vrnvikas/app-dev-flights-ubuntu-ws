@@ -60,9 +60,9 @@ pipeline {
         stage('tag the build') {
             steps {
                     sh 'git describe --tags --long'
-                }
             }
-        }        
+        }
+               
         
 
     }
