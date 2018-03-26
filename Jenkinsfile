@@ -60,7 +60,8 @@ pipeline {
         stage('tag the build') {
             steps {
                     sh 'git describe --tags --long'
-                    
+                    sh "git tag -a v0.8 -m 'build-${env.BUILD_NUMBER}'"
+                    sh 'git push origin v0.8'
                     print "commit message"
                     print getCommit()
                     print "tag"
