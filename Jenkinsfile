@@ -93,7 +93,9 @@ String gitTagName() {
 String gitTagLatest() {
     sha = sh(script: "git rev-list --tags --max-count=1", returnStdout: true)?.trim()
     desc = sh(script: "git describe --tags ${sha}", returnStdout: true)?.trim()
-    return desc
+
+    shortTag = desc.substring(0,desc.length()-2)
+    return shortTag
 }
  
 /** @return The tag message, or `null` if the current commit isn't a tag. */
