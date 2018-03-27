@@ -54,7 +54,6 @@ pipeline {
             steps { 
 
 
-                    
                     //sh"git config user.name 'vrnvikas'"
                     //sh"git config user.email 'vrnvikas1994@gmail.com'"
                     //sh"git tag v$pom_version.${env.BUILD_NUMBER}"
@@ -62,7 +61,20 @@ pipeline {
                     //sh 'git describe --tags --long'
                     //sh "git tag -a v0.8.1 -m 'build-${env.BUILD_NUMBER}'"
                     //sh 'git push origin v0.8.1'
+                    def git_creds = '7943607d-b421-4237-bc45-c7cef3fb3904'
                     print sh(script: "git describe --tags --long", returnStdout: true)?.trim()
+
+                    withCredentials([
+                        [$class: 'UsernamePasswordMultiBinding', credentialsId: git_creds, usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS'],
+                            ]){
+                                stage ('echo variables') {
+                                sh """(
+                                echo "User: ${GIT_USER}"
+                                echo "Pass: ${GIT_PASS}"
+                                )"""
+                                }
+                                }
+
             }
         }
 
