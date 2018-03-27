@@ -75,8 +75,8 @@ pipeline {
                                     echo "Tag_version: ${gitTagName()}"
                                     )"""
 
-
-
+                                    print getCommit()
+                                    print gitTagName()
 
                                 }
                                 
