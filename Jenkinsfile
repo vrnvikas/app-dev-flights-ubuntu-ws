@@ -69,6 +69,7 @@ pipeline {
                                     sh """(
                                     echo "User: ${GIT_USER}"
                                     echo "Pass: ${GIT_PASS}"
+                                    git remote set-url origin https://github.com/vrnvikas/app-dev-flights-ubuntu-ws.git
                                     git tag -a v0.8.1 -m "build-${env.BUILD_NUMBER}"
                                     git push origin v0.8.2
                                     )"""
