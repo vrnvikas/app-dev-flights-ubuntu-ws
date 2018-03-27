@@ -94,7 +94,7 @@ String gitTagLatest() {
     sha = sh(script: "git rev-list --tags --max-count=1", returnStdout: true)?.trim()
     desc = sh(script: "git describe --tags ${sha}", returnStdout: true)?.trim()
 
-    shortTag = desc.substring(0,desc.lastindexof(.))
+    shortTag = desc.substring(0,desc.lastindexof(".")-1)
     return shortTag
 }
  
