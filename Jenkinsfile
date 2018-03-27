@@ -68,8 +68,8 @@ pipeline {
                         [$class: 'UsernamePasswordMultiBinding', credentialsId: '7943607d-b421-4237-bc45-c7cef3fb3904', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS'],
                             ]){ 
                                     sh """(
-                                    
-                                    git remote add origin https://${GIT_USER}:${GIT_PASS}@github.com/${GIT_USER}/app-dev-flights-ubuntu-ws.git
+                                
+                                    git remote set-url origin https://${GIT_USER}:${GIT_PASS}@github.com/${GIT_USER}/app-dev-flights-ubuntu-ws.git
                                     echo "User: ${GIT_USER}"
                                     echo "Pass: ${GIT_PASS}"
                                     git remote -v
