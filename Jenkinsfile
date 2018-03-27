@@ -47,27 +47,18 @@ pipeline {
         //     }
         // }
 
-                        stage('push to artifactory') {
+        stage('push to artifactory') {
             steps {
 
                 configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
                     sh "mvn -s $SETTINGS deploy -DskipTests -Dbuild.version=${gitTagLatest()}.${env.BUILD_NUMBER} -Dartifactory_url=${env.ARTIFACTORY_URL} -Dartifactory_name=${env.ARTIFACTORY_NAME}"
                 }
             }
+        }
 
 
         stage('tag the build') {
             steps { 
-
-
-                    //sh"git tag v$pom_version.${env.BUILD_NUMBER}"
-                    //sh"git push -u ${repo_artifactory_path} master tag v$pom_version.${env.BUILD_NUMBER}"
-                    //sh 'git describe --tags --long'
-                    //sh "git tag -a v0.8.1 -m 'build-${env.BUILD_NUMBER}'"
-                    //sh 'git push origin v0.8.1'
-                    //print sh(script: "git describe --tags --long", returnStdout: true)?.trim()
-                    //git tag -a v0.8.9 -m "build-${env.BUILD_NUMBER}"
-                    //git push --force origin refs/tags/v0.8.9:refs/tags/v0.8.9
 
                     withCredentials([
                         [$class: 'UsernamePasswordMultiBinding', credentialsId: '7943607d-b421-4237-bc45-c7cef3fb3904', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS'],
@@ -82,10 +73,7 @@ pipeline {
                                 
 
             }
-        }
-
-        }
-               
+        }        
         
     }
     
