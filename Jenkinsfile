@@ -112,8 +112,8 @@ String gitTagName() {
 
 
 String gitTagLatest() {
-   
-    desc = sh(script: "git describe --tags $(git rev-list --tags --max-count=1)", returnStdout: true)?.trim()
+    sha = sh(script: "git rev-list --tags --max-count=1", returnStdout: true)?.trim()
+    desc = sh(script: "git describe --tags ${sha}", returnStdout: true)?.trim()
     return desc
 }
  
