@@ -55,6 +55,7 @@ pipeline {
 
 
                     //sh"git config user.name 'vrnvikas'"
+                    //git remote set-url origin https://github.com/vrnvikas/app-dev-flights-ubuntu-ws.git
                     //sh"git config user.email 'vrnvikas1994@gmail.com'"
                     //sh"git tag v$pom_version.${env.BUILD_NUMBER}"
                     //sh"git push -u ${repo_artifactory_path} master tag v$pom_version.${env.BUILD_NUMBER}"
@@ -69,7 +70,7 @@ pipeline {
                                     sh """(
                                     echo "User: ${GIT_USER}"
                                     echo "Pass: ${GIT_PASS}"
-                                    git remote set-url origin https://github.com/vrnvikas/app-dev-flights-ubuntu-ws.git
+                                    git remote -v
                                     git tag -a v0.8.1 -m "build-${env.BUILD_NUMBER}"
                                     git push origin v0.8.2
                                     )"""
