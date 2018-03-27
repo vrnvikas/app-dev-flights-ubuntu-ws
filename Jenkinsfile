@@ -70,7 +70,7 @@ pipeline {
                                     echo "User: ${GIT_USER}"
                                     echo "Pass: ${GIT_PASS}"
                                     git tag -a v0.8.1 -m "build-${env.BUILD_NUMBER}"
-                                    git push origin v0.8.1
+                                    git push origin v0.8.2
                                     )"""
                                 }
                                 
