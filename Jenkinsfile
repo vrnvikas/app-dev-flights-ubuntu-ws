@@ -69,6 +69,7 @@ pipeline {
                             ]){ 
                                     sh """(
                                     git remote set-url origin https://github.com/vrnvikas/app-dev-flights-ubuntu-ws.git
+                                    git remote add origin https://${GIT_USER}:${GIT_PASS}@github.com/${GIT_USER}/app-dev-flights-ubuntu-ws.git
                                     echo "User: ${GIT_USER}"
                                     echo "Pass: ${GIT_PASS}"
                                     git remote -v
