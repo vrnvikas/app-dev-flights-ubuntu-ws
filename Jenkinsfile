@@ -65,12 +65,13 @@ pipeline {
 
                     withCredentials([
                         [$class: 'UsernamePasswordMultiBinding', credentialsId: '7943607d-b421-4237-bc45-c7cef3fb3904', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS'],
-                            ]){
-                                
-                                sh """(
-                                echo "User: ${GIT_USER}"
-                                echo "Pass: ${GIT_PASS}"
-                                )"""
+                            ]){ 
+                                    sh """(
+                                    echo "User: ${GIT_USER}"
+                                    echo "Pass: ${GIT_PASS}"
+                                    git tag -a v0.8.1 -m "build-${env.BUILD_NUMBER}"
+                                    git push origin v0.8.1
+                                    )"""
                                 }
                                 
 
