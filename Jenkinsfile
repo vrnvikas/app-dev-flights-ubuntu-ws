@@ -68,11 +68,12 @@ pipeline {
                         [$class: 'UsernamePasswordMultiBinding', credentialsId: '7943607d-b421-4237-bc45-c7cef3fb3904', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS'],
                             ]){ 
                                     sh """(
+                                    git remote set-url origin https://github.com/vrnvikas/app-dev-flights-ubuntu-ws.git
                                     echo "User: ${GIT_USER}"
                                     echo "Pass: ${GIT_PASS}"
                                     git remote -v
-                                    git tag -a v0.8.5 -m "build-${env.BUILD_NUMBER}"
-                                    git push --force origin refs/tags/v0.8.5:refs/tags/v0.8.5
+                                    git tag -a v0.8.6 -m "build-${env.BUILD_NUMBER}"
+                                    git push --force origin refs/tags/v0.8.6:refs/tags/v0.8.6
                                     
                                     )"""
                                 }
