@@ -66,13 +66,13 @@ pipeline {
                     withCredentials([
                         [$class: 'UsernamePasswordMultiBinding', credentialsId: '7943607d-b421-4237-bc45-c7cef3fb3904', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS'],
                             ]){
-                                stage ('echo variables') {
+                                
                                 sh """(
                                 echo "User: ${GIT_USER}"
                                 echo "Pass: ${GIT_PASS}"
                                 )"""
                                 }
-                                }
+                                
 
             }
         }
