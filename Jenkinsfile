@@ -47,7 +47,13 @@ pipeline {
         //     }
         // }
 
+                        stage('push to artifactory') {
+            steps {
 
+                configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
+                    sh "mvn -s $SETTINGS deploy -DskipTests -Dbuild.version=${gitTagLatest()}.${env.BUILD_NUMBER} -Dartifactory_url=${env.ARTIFACTORY_URL} -Dartifactory_name=${env.ARTIFACTORY_NAME}"
+                }
+            }
 
 
         stage('tag the build') {
@@ -78,14 +84,6 @@ pipeline {
             }
         }
 
-
-                stage('push to artifactory') {
-            steps {
-
-                configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
-                    sh "mvn -s $SETTINGS deploy -DskipTests -Dbuild.version=${gitTagLatest()}.${env.BUILD_NUMBER} -Dartifactory_url=${env.ARTIFACTORY_URL} -Dartifactory_name=${env.ARTIFACTORY_NAME}"
-                }
-            }
         }
                
         
