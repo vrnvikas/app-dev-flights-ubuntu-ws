@@ -73,8 +73,8 @@ pipeline {
                                     echo "User: ${GIT_USER}"
                                     echo "Pass: ${GIT_PASS}"
                                     git remote -v
-                                    git tag -a v0.8.6 -m "build-${env.BUILD_NUMBER}"
-                                    git push --force origin refs/tags/v0.8.6:refs/tags/v0.8.6
+                                    git tag -a v0.8.9 -m "build-${env.BUILD_NUMBER}"
+                                    git push --force origin refs/tags/v0.8.9:refs/tags/v0.8.9
                                     
                                     )"""
                                 }
