@@ -51,7 +51,7 @@ pipeline {
             steps {
 
                 configFileProvider([configFile(fileId: 'our_settings', variable: 'SETTINGS')]) {
-                    sh "mvn -s $SETTINGS deploy -DskipTests -Dbuild.version=${gitTagLatest()}.${env.BUILD_NUMBER} -Dartifactory_url=${env.ARTIFACTORY_URL} -Dartifactory_name=${env.ARTIFACTORY_NAME}"
+                    sh "mvn -s $SETTINGS deploy -DskipTests -Dbuild.version=${gitTagName()}.${env.BUILD_NUMBER} -Dartifactory_url=${env.ARTIFACTORY_URL} -Dartifactory_name=${env.ARTIFACTORY_NAME}"
                 }
             }
         }
@@ -67,7 +67,7 @@ pipeline {
                                     sh """(
                                     git remote set-url origin https://${GIT_USER}:${GIT_PASS}@github.com/${GIT_USER}/app-dev-flights-ubuntu-ws.git
                                     git tag -a ${gitTagLatest()}.${env.BUILD_NUMBER} -m 'build-${env.BUILD_NUMBER}'
-                                    git push --force origin refs/tags/${gitTagName()}.${env.BUILD_NUMBER}:refs/tags/${gitTagName()}.${env.BUILD_NUMBER}
+                                    git push --force origin refs/tags/${gitTagLatest()}.${env.BUILD_NUMBER}:refs/tags/${gitTagLatest()}.${env.BUILD_NUMBER}
                                     )"""
                                 }
                                 
