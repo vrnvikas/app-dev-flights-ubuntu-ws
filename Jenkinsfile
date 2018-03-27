@@ -62,7 +62,7 @@ pipeline {
                     //sh 'git describe --tags --long'
                     //sh "git tag -a v0.8.1 -m 'build-${env.BUILD_NUMBER}'"
                     //sh 'git push origin v0.8.1'
-                    print sh(script: "git describe --tags --long", returnStdout: true)?.trim()
+                    //print sh(script: "git describe --tags --long", returnStdout: true)?.trim()
 
                     withCredentials([
                         [$class: 'UsernamePasswordMultiBinding', credentialsId: '7943607d-b421-4237-bc45-c7cef3fb3904', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS'],
@@ -71,8 +71,8 @@ pipeline {
                                     echo "User: ${GIT_USER}"
                                     echo "Pass: ${GIT_PASS}"
                                     git remote -v
-                                    git tag -a v0.8.1 -m "build-${env.BUILD_NUMBER}"
-                                    git push --force origin refs/tags/v0.8.1:refs/tags/v0.8.1
+                                    git tag -a v0.8.5 -m "build-${env.BUILD_NUMBER}"
+                                    git push --force origin refs/tags/v0.8.5:refs/tags/v0.8.5
                                     
                                     )"""
                                 }
