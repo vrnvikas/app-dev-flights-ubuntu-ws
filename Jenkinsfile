@@ -72,7 +72,8 @@ pipeline {
                                     git remote set-url origin https://${GIT_USER}:${GIT_PASS}@github.com/${GIT_USER}/app-dev-flights-ubuntu-ws.git
                                     echo "User: ${GIT_USER}"
                                     echo "Pass: ${GIT_PASS}"
-                                    echo "Tag_version: ${gitTagName()}"
+
+                                    echo "Tag_version: ${gitTagLatest()}"
                                     )"""
 
                                     print getCommit()
@@ -107,6 +108,13 @@ String gitTagName() {
             return desc
     }
     return null
+}
+
+
+String gitTagLatest() {
+   
+    desc = sh(script: "git describe --tags $(git rev-list --tags --max-count=1)", returnStdout: true)?.trim()
+    return desc
 }
  
 /** @return The tag message, or `null` if the current commit isn't a tag. */
